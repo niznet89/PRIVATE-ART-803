@@ -5,7 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'byebug'
 
+Bid.delete_all
 AuctionItem.delete_all
 Artwork.delete_all
 Auction.delete_all
@@ -18,7 +20,7 @@ user_2 = User.create!(first_name: "John", last_name: "Doe", email: "john@gmail.c
 artwork_1 = Artwork.create(title: 'Mona Lisa', price: 100, buyer: user_1, description: 'Beautiful', artist: user_1)
 artwork_2 = Artwork.create(title: 'Starry night', price: 200, buyer: user_2, description: 'Really beautiful', artist: user_1)
 
-auction_1 = Auction.create(description: "test", address: "123 Main street", user: user_1, date: '2022-03-15', status: true, start_time: '2022-03-15 11:00:00', end_time: '2022-03-15 12:00:00')
-auction_item_1 = AuctionItem.create(artwork: artwork_1, auction: auction_1)
+auction_1 = Auction.create!(description: "test", address: "123 Main street", user_id: user_1.id, date: '2022-03-15', status: true, start_time: '2022-03-15 11:00:00', end_time: '2022-03-15 12:00:00')
+auction_item_1 = AuctionItem.create!(artwork: artwork_1, auction_id: auction_1.id)
 
 puts "#{User.count} users and #{Artwork.count} artworks have been created, #{Auction.count} auctions have been created #{AuctionItem.count} auction items created"
