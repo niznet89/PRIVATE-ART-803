@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   resources :artworks, only: [:index, :new, :create, :show]
-  resources :auctions, only: [:index, :new, :create, :show] do
+  resources :auctions, only: [:create, :show] do
     resources :auction_items, only: [:show, :new, :create] do
       resources :bids, only: [:create, :show]
     end
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'profile', to: 'pages#profile', as: 'profile'
   get 'dashboard', to: 'pages#dashboard', as: 'dashboard'
   get 'my_auctions', to: 'pages#my_auctions', as: 'my_auctions'
+  get '/enter_auctions', to: 'auctions#enter_auctions', as: 'enter_auctions'
   resources :auction_items, only: [] do
     member do
       patch 'finish_bid'
