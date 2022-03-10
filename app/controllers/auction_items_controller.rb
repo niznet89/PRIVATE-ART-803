@@ -68,6 +68,19 @@ class AuctionItemsController < ApplicationController
     #                             #render_to_string(partial: "shared/win")
     #   )
     # head :ok
+    def my_artworks
+      @auction_item = AuctionItem.find(params["id"])
+      @artwork = @auction_item.artwork
+
+      @bids = @auction_item.bids
+      @highest_bid_price = @auction_item.bids.maximum(:price)
+      @highest_bid = @bids.where(price: @highest_bid_price)
+
+      @artwork.buyer_id = @highest_bid[0].user_id
+      @artwork.price = @highest_bid[0].price
+
+      @user.artwork >> @artwork
+    end
   end
 
   private
